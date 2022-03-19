@@ -1,8 +1,8 @@
 const inquirer = require('inquirer');
-const { allowedNodeEnvironmentFlags } = require('process');
 const db = require('./db/connection');
 
-const questions = [];
+
+// const questions = [];
 
 db.connect(err => {
     if(err) throw err;
@@ -25,11 +25,13 @@ function promptInput() {
             'Add a role',
             'Add an employee',
             'Update an employee role'
+            
           ],
         },
     ])
     .then((response) => {
-        switch (response.options) {
+        console.log(response)
+        switch (response.selection) {
             case 'View all departments':
                 viewDepartment();
                 break;
@@ -57,20 +59,45 @@ function promptInput() {
             case 'update an employee role':
                 updateRole();
                 break;
+
+            case 'end':
+                connect.end();
+                break;
         }
     });
 };
 
-function viewDepartment() {}
+function viewDepartment() {
+   db.promise().query('SELECT * FROM department')
+    .then((response) => {
+    console.table(response[0])
+    });
+}
 
-function viewAllRoles() {}
+function viewAllRoles() {
+    db.promise().query('SELECT * FROM roles')
+    .then((response) => {
+    console.table(response[0])
+    });
+}
 
-function viewAllEmployees() {}
+function viewAllEmployees() {
+    db.promise().query('SELECT * FROM employee')
+    .then((response) => {
+    console.table(response[0])
+    });
+}
 
-function addDepartment() {}
+function addDepartment() {
+
+}
 
 function addRole () {}
 
 function addEmployee () {}
 
 function updateRole () {}
+
+
+
+
