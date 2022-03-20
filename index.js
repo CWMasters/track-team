@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const db = require('./db/connection');
 
 
+
 // const questions = [];
 
 db.connect(err => {
@@ -97,6 +98,7 @@ function addRole () {}
 function addEmployee () {}
 
 function updateRole () {}
+
 
 
 
